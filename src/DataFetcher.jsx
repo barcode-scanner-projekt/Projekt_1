@@ -1,67 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import Airtable from 'airtable';
-import BarcodeScanner from './BarcodeScanner';
+import React, { useEffect, useState } from "react";
+import BarcodeScanner from "./BarcodeScanner";
+import { ScanCount } from "./App";
+import { useAtom } from 'jotai'
 
-const apiKey = process.env.REACT_APP_AIRTABLE_API
 
-const base = new Airtable({apiKey: apiKey}).base("app6KPRj9WClvok0d")
+async function fetchStudents(studentId) {
+	const response = await fetch(`https://ntifoodpeople.vercel.app/api/users/${studentId}`);
 
+	const json = await response.json();
+	return json;
+}
 
 const DataFetcher = () => {
-  const [studentsData, setStudentsData] = useState([]); 
-  const [namnArray, setNamnArray] = useState([])
-  const [listItems, setListItems] = useState([])
-  const [scans, setScans] = useState("");  
-  const handleScan = (scanResult) => {
-    setScans((prevScans) => [...prevScans, scanResult]);  
-  };
+	const [studentArray, setStudentArray] = useState([]);
+	const [scanCount, setScanCount] = useAtom(ScanCount)
 
-  function addItem(record){
-    const namn = record.get("Namn");
+	async function onScan(data) {
+		const result = await fetchStudents(data.toLowerCase());
+		if (studentArray.some((e) => e._id === result[0]._id)) {
+			return;
+		} 
+		setStudentArray([...studentArray, result[0]])
 
-    if(!namnArray.includes(namn)){
-      const newItem = {
-        namn: namn,
-        isPersonal: record.get("isPersonal"),
+		setScanCount(scanCount + 1);
+	}
 
-      }
-      setNamnArray((prev) => [...prev, namn]);
-      setListItems((prev) => [...prev, newItem])
-    }else return;
-  }
-useEffect(() => {
-
-    base("data").select({ fields: ["Id" , "Namn", "isPersonal"]}).eachPage((records, fetchNextPage) => {
-      records.forEach((record) => {
-        if (record.get("Id") === scans){
-          addItem(record);
-          setScans("")
-        }
-      });
-      fetchNextPage();
-    },
-  (err) => {
-    if (err) console.error(err);
-  })
-  }, [scans])
-
-  return (
-    <div>
-      <BarcodeScanner onScan={handleScan} />
-      <h1>Student Data</h1>
-      {studentsData.length === 0 ? (
-        <p>Ingen studentdata tillgänglig</p>
-      ) : (
-        <ul>
-          {studentsData.map((student) => (
-            <li key={student.student_id}>
-              {student.name} (ID: {student.student_id})
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
-  );
+	return (
+		<div>
+			<BarcodeScanner onScan={onScan} />
+			<h1 className="text-green-400">Student Data</h1>
+			{studentArray.map((element) => {
+				return <h1 style={{color: !element.teacher ? "#ff0000" : "#fff"}}>{element.username}</h1>;
+			})}
+		</div>
+	);
 };
 
 export default DataFetcher;
