@@ -1,49 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import Airtable from 'airtable';
-import BarcodeScanner from './BarcodeScanner';
-
-const apiKey = process.env.REACT_APP_AIRTABLE_API
-
-const base = new Airtable({apiKey: apiKey}).base("app6KPRj9WClvok0d")
-
+import React, { useState, useEffect } from "react";
+import BarcodeScanner from "./BarcodeScanner";
 
 const DataFetcher = () => {
-  const [studentsData, setStudentsData] = useState([]); 
-  const [namnArray, setNamnArray] = useState([])
-  const [listItems, setListItems] = useState([])
-  const [scans, setScans] = useState("");  
+  const [studentsData, setStudentsData] = useState([]);
+  const [namnArray, setNamnArray] = useState([]);
+  const [listItems, setListItems] = useState([]);
+  const [scans, setScans] = useState("");
   const handleScan = (scanResult) => {
-    setScans((prevScans) => [...prevScans, scanResult]);  
+    setScans((prevScans) => [...prevScans, scanResult]);
   };
 
-  function addItem(record){
+  function addItem(record) {
     const namn = record.get("Namn");
 
-    if(!namnArray.includes(namn)){
+    if (!namnArray.includes(namn)) {
       const newItem = {
         namn: namn,
         isPersonal: record.get("isPersonal"),
-
-      }
+      };
       setNamnArray((prev) => [...prev, namn]);
-      setListItems((prev) => [...prev, newItem])
-    }else return;
+      setListItems((prev) => [...prev, newItem]);
+    } else return;
   }
-useEffect(() => {
-
-    base("data").select({ fields: ["Id" , "Namn", "isPersonal"]}).eachPage((records, fetchNextPage) => {
-      records.forEach((record) => {
-        if (record.get("Id") === scans){
-          addItem(record);
-          setScans("")
-        }
-      });
-      fetchNextPage();
-    },
-  (err) => {
-    if (err) console.error(err);
-  })
-  }, [scans])
 
   return (
     <div>
