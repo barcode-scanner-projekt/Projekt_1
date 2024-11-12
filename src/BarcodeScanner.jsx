@@ -19,13 +19,11 @@ const BarcodeScanner = ({ onScan }) => {
 
   return (
     <div>
-      <h2>Test</h2>
       <BarcodeReader
         onScan={handleScan}
         onError={handleError}
         delay={500}  
       />
-      <p>{scanResult ? `Scannad ID: ${scanResult}` : 'Skanna en streckkod'}</p>
     </div>
   );
 };

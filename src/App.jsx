@@ -24,7 +24,6 @@ const App = () => {
 	  <p>{scanCount}</p>
       
       <DataFetcher/>
-      <h2>Scannade ID:n:</h2>
     </div>
   );
 }
