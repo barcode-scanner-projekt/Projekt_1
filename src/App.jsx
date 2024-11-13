@@ -6,10 +6,10 @@ import Weather from "./weather";
 const App = () => {
   return (
     <div className="App">
+      <Weather />
       <h1>Streckkodsläsare App</h1>
       <DataFetcher />
       <h2>Scannade ID:n:</h2>
-      <Weather />
     </div>
   );
 };
