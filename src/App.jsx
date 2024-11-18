@@ -21,13 +21,13 @@ const App = () => {
   
   return (
     <div className="App">
+      <Weather />
       <h1>Streckkodsläsare App</h1>
 	  <p>{scanCount}</p>
 
     <Veckomeny/>
       <DataFetcher />
       <h2>Scannade ID:n:</h2>
-      <Weather />
     </div>
   );
 };
