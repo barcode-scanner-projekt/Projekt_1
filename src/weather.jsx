@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
+import "./weather.css";
 
 const Weather = () => {
   const [weatherData, setWeatherData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
-    // Check if geolocation is available
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         async (position) => {
@@ -34,25 +35,81 @@ const Weather = () => {
     }
   }, []);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
-  if (!weatherData) return <p>No weather data available</p>;
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const formatDate = (date) => {
+    const days = [
+      "Söndag",
+      "Måndag",
+      "Tisdag",
+      "Onsdag",
+      "Torsdag",
+      "Fredag",
+      "Lördag",
+    ];
+    const months = [
+      "januari",
+      "februari",
+      "mars",
+      "april",
+      "maj",
+      "juni",
+      "juli",
+      "augusti",
+      "september",
+      "oktober",
+      "november",
+      "december",
+    ];
+    return `${days[date.getDay()]} ${date.getDate()} ${
+      months[date.getMonth()]
+    }`;
+  };
+
+  if (loading) return <p className="text-white text-xl">Loading...</p>;
+  if (error) return <p className="text-red-500 text-xl">Error: {error}</p>;
+  if (!weatherData)
+    return <p className="text-gray-400 text-xl">No weather data available</p>;
 
   return (
-    <div>
-      <h2>
-        {weatherData.name}, {weatherData.sys.country}
-      </h2>
-      <p>Temperature: {weatherData.main.temp}°C</p>
-      <p>Condition: {weatherData.weather[0].description}</p>
-      <img
-        src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`}
-        alt="condition"
-      />
-      <p>
-        Wind: {weatherData.wind.speed} m/s, Humidity:{" "}
-        {weatherData.main.humidity}%
-      </p>
+    <div className="bg-purple-950 min-h-screen flex items-start justify-start p-8">
+      <div className="bg-black/35 p-8 rounded-3xl shadow-2xl text-left text-white max-w-lg">
+        <div className="absolute top-4 left-4">
+          <img
+            src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`}
+            alt="condition"
+            className="w-40 h-50"
+          />
+        </div>
+        <div className="pl-36">
+          <div className="text-lg font-bold mb-1">
+            {formatDate(currentTime)}
+          </div>
+
+          <div className="text-6xl font-extrabold mb-3">
+            {currentTime.toLocaleTimeString([], {
+              hour: "2-digit",
+              minute: "2-digit",
+              hour12: false,
+            })}
+          </div>
+
+          <p className="text-5xl font-extrabold mb-2">
+            {Math.round(weatherData.main.temp)}°
+          </p>
+        </div>
+
+        <div className="pl-36">
+          <p className="text-lg capitalize mb-2">
+            {weatherData.weather[0].description}
+          </p>
+        </div>
+      </div>
     </div>
   );
 };
