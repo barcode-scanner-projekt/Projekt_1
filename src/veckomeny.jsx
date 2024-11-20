@@ -3,11 +3,11 @@ import axios from "axios";
 
 const Veckomeny = () => {
 	const [meals, setMeals] = useState({
-		Måndag: "Laddar...",
-		Tisdag: "Laddar...",
-		Onsdag: "Laddar...",
-		Torsdag: "Laddar...",
-		Fredag: "Laddar...",
+		0: "Laddar...",
+		1: "Laddar...",
+		2: "Laddar...",
+		3: "Laddar...",
+		4: "Laddar...",
 	});
 
 	useEffect(() => {
@@ -19,10 +19,9 @@ const Veckomeny = () => {
 				const apiData = response.data.items;
 				const formattedMeals = {};
 
-				apiData.forEach((item) => {
-					const day = item.title.split(" - ")[0];
+				apiData.forEach((item, idx) => {
 					item.description = item.description.split("<br/>")
-					formattedMeals[day] = item.description;
+					formattedMeals[idx] = item.description;
 				});
 
 				setMeals(formattedMeals);
@@ -41,16 +40,16 @@ const Veckomeny = () => {
 			</div>
 			<div className="space-y-2">
 				{["Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag"].map(
-					(day) => (
+					(day, idx) => (
 						<div
 							className="flex justify-between text-white text-sm p-2 rounded gap-4 items-center"
 							key={day}
 						>
 							<span className="font-bold text-lg">{day}</span>
 							<span className="text-gray-200 text-base">
-								{meals[day][0] || "Ingen data"}
+								{meals[idx][0] || "Ingen data"}
 								<br />
-								{meals[day][1] || "Ingen data"}
+								{meals[idx][1] || "Ingen data"}
 							</span>
 						</div>
 					)
