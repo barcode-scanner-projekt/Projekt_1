@@ -37,7 +37,7 @@ const Veckomeny = () => {
 	const glow = "drop-shadow-[0_0_16px_rgba(255,255,255,0.8)]";
 
 	return (
-		<div className="w-2/5 ml-4 p-5 rounded-2xl text-right shadow-lg bg-black/55 backdrop-blur-md">
+		<div className="w-2/5 ml-4 p-5 rounded-2xl text-right shadow-l backdrop-blur-md bg-fuchsia-950/50">
 			<div className="text-lg font-bold text-white p-2 rounded mb-5">
 				Veckans Lunch
 			</div>

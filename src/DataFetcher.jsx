@@ -78,7 +78,7 @@ const DataFetcher = () => {
 
 	return (
 		<>
-			<div className="w-full h-1/2 bg-black/55 rounded-3xl text-white shadow-2xl p-5 backdrop-blur-md">
+			<div className="w-full h-1/2 rounded-3xl text-white shadow-2xl p-5 backdrop-blur-md bg-fuchsia-950/50">
 				<h1 className="text-2xl font-bold">Scan Your Card To Eat</h1>
 				<p>
 					People scanned:{" "}
@@ -96,7 +96,7 @@ const DataFetcher = () => {
 				</p>
 			</div>
 			<BarcodeScanner onScan={onScan} />
-			<div className="bg-black/55 rounded-3xl text-white shadow-2xl p-5 h-64 backdrop-blur-md">
+			<div className="rounded-3xl text-white shadow-2xl p-5 h-64 backdrop-blur-md bg-fuchsia-950/50">
 				{fixedArray.map((element) => {
 					return (
 						<h1
