@@ -34,8 +34,8 @@ const Veckomeny = () => {
   }, []);
 
   return (
-    <div className="w-2/5 ml-4 p-5 rounded-2xl text-right shadow-lg bg-black/55 backdrop-blur-md">
-      <div className="text-lg font-bold text-white p-2 rounded mb-5">
+    <div className="w-2/5 ml-4 p-5 rounded-2xl text-right shadow-lg bg-fuchsia-950/55 backdrop-blur-md">
+      <div className="text-4xl font-bold text-white p-2 rounded mb-5 text-center">
         Veckans Lunch
       </div>
       <div className="space-y-2">

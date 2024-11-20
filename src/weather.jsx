@@ -77,7 +77,7 @@ const Weather = () => {
     return <p className="text-gray-400 text-xl">No weather data available</p>;
 
   return (
-    <div className="bg-black/50 p-8 rounded-3xl shadow-2xl text-left text-white max-w-lg backdrop-blur-md">
+    <div className="bg-fuchsia-950/50 p-8 rounded-3xl shadow-2xl text-left text-white max-w-lg backdrop-blur-md">
       <div className="absolute top-4 left-4">
         <img
           src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`}
