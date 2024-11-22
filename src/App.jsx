@@ -12,11 +12,11 @@ export const ScanCount = atom(0);
 const App = () => {
   return (
     <div className="App">
-      <div className="bg-transparent min-h-screen flex justify-between items-start p-8">
-        <Weather />
-        <div className="w-96 h-96 flex flex-col gap-5 ml-5">
+      <div className="bg-transparent min-h-screen grid grid-cols-3 grid-rows-1 gap-4 p-8">
+        <div className="w-auto h-screen flex flex-col gap-5 ml-5">
           <DataFetcher />
         </div>
+        <Weather />
 
         <Veckomeny />
       </div>
