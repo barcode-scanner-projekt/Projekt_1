@@ -77,16 +77,18 @@ const Weather = () => {
     return <p className="text-gray-400 text-xl">No weather data available</p>;
 
   return (
-    <div className="bg-fuchsia-950/50 p-8 rounded-3xl shadow-2xl text-left text-white max-w-lg backdrop-blur-md">
+    <div className="bg-gradient-to-b from-black/40 to-fuchsia-800/50 p-8 rounded-3xl shadow-2xl text-left text-white max-w-lg backdrop-blur-md shadow-fuchsia-950">
       <div className="absolute top-4 left-4">
         <img
           src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`}
           alt="condition"
-          className="w-40 h-50"
+          className="w-40 h-50 shadow-2xl"
         />
       </div>
       <div className="pl-36">
-        <div className="text-lg font-bold mb-1">{formatDate(currentTime)}</div>
+        <div className="text-xl font-bold mb-1 text-fuchsia-500">
+          {formatDate(currentTime)}
+        </div>
 
         <div className="text-6xl font-extrabold mb-3">
           {currentTime.toLocaleTimeString([], {
@@ -96,14 +98,12 @@ const Weather = () => {
           })}
         </div>
 
-        <p className="text-5xl font-extrabold mb-2">
-          {Math.round(weatherData.main.temp)}°
-        </p>
-      </div>
+        <div className="text-xl font-extrabold mb-1 text-cyan-500">
+          {"LUNCH: 11:00-13:00"}
+        </div>
 
-      <div className="pl-36">
-        <p className="text-lg capitalize mb-2">
-          {weatherData.weather[0].description}
+        <p className="text-5xl font-extrabold mb-2 e1">
+          {Math.round(weatherData.main.temp)}°
         </p>
       </div>
     </div>

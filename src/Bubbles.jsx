@@ -29,13 +29,11 @@ const Bubbles = () => {
       ctx.fillStyle = "#230035"; // Dark purple background
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Draw bubbles
       bubbles.forEach((bubble) => {
-        // Apply blur filter for blurry bubbles
         if (bubble.isBlurry) {
-          ctx.filter = "blur(8px)"; // Apply a blur to the circle
+          ctx.filter = "blur(8px)";
         } else {
-          ctx.filter = "none"; // No blur for sharp bubbles
+          ctx.filter = "none";
         }
 
         // Create a linear gradient

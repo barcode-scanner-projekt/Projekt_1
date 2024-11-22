@@ -10,19 +10,19 @@ import Bubbles from "./Bubbles.jsx";
 export const ScanCount = atom(0);
 
 const App = () => {
-	return (
-		<div className="App">
-			<div className="bg-transparent min-h-screen flex justify-between items-start p-8">
-				<Weather />
-				<div className="w-96 h-96 flex flex-col gap-5 ml-5">
-					<DataFetcher />
-				</div>
+  return (
+    <div className="App">
+      <div className="bg-transparent min-h-screen flex justify-between items-start p-8">
+        <Weather />
+        <div className="w-96 h-96 flex flex-col gap-5 ml-5">
+          <DataFetcher />
+        </div>
 
-				<Veckomeny />
-			</div>
-			<Bubbles />
-		</div>
-	);
+        <Veckomeny />
+      </div>
+      <Bubbles />
+    </div>
+  );
 };
 
 export default App;
